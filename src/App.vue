@@ -11,6 +11,7 @@
       </div>
     </template>
     <template v-else>
+      <Menu />
       <router-view />
     </template>
   </div>
@@ -18,9 +19,11 @@
 <script>
 import Aside from './components/layout/aside.vue'
 import navbar from './components/layout/navbar.vue'
+import Menu from './components/layout/Menu.vue'
+
 export default{
   name:'App',
-  components: { navbar,Aside },
+  components: { navbar,Aside,Menu },
   data(
     ){
     return{

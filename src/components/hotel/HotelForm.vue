@@ -96,19 +96,50 @@
               >
             </div>
           </div>
+          <div class="col-xl-4 col-6">
+            <div class="form-group">
+              <label for="hotelLongitude">Link image</label>
+              <input
+                id="hotelLongitude"
+                v-model="bulding.image"
+                type="text"
+                class="form-control"
+                placeholder="Enter Hotel image link "
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div> 
-    <div class="card card-primary mt-5">
-      <div class="card-header">
+    <div
+      v-for="(extra,idx) in extras"
+      :key="extra.id"
+      class="card card-primary mt-5"
+    >
+      <div class="card-header d-flex align-items-center">
         <h3 class="card-title  text-bold">
-          EXTRAS
+          EXTRAS #{{ idx+1 }}
         </h3>
+        <div class=" ml-auto d-flex">
+          <button
+            class="btn btn-success"
+            @click.prevent="newExtras"
+          >
+            +
+          </button>
+          <button class="btn btn-danger">
+            -
+          </button>
+        </div>
       </div>
       <div class="card-body">
-        <div class="row border border-secondary">
+        <div class="row">
           <div class="col-12">
-            <hotel-extras key="first" />
+            <hotel-extras
+              key="first"
+              :extras="extra"
+              :extras-array="extras"
+            />
           </div>
         </div>
       </div>
@@ -133,16 +164,30 @@ components: {
         city:'',
         zipCode:'',
         latitude:'',
-        longitude:''
+        longitude:'',
+        image:'',
     },
-    extras:[
-        {
-            name:"WIEL`XD",
-            valueType:'text',
-        }
-    ]
     }
   
+},
+  computed:{
+    extras(){
+      return    this.$store.state.extras
+
+    }
+  },
+methods:{
+  newExtras(){
+    this.extras.push( {
+      id:new Date().valueOf,
+            name:"test",
+            properties:{
+
+            },
+            value:'text',
+            valueType:'text',
+        },)
+  }
 }
 }
 </script>

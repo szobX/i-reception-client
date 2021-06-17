@@ -4,41 +4,47 @@
     <div class="d-flex">
       <input
         id="hotelname"
+        v-model="extras.name"
         type="text"
         class="form-control"
-        placeholder="Enter Bulding name"
+        placeholder="Enter Extras name"
       >
-      <div class=" ml-1 d-flex">
-        <button class="btn btn-success">
-          +
-        </button>
-        <button class="btn btn-danger">
-          -
-        </button>
-      </div>
     </div>
     <!-- children -->
+    
     <HotelExtrasProperty
-      key="kaosdasd"
+      v-for="(value,key) in extras.properties"
+      :key="key"
       :extras="extras"
+      :current-props="[key,value]"
     />
+    <div class="btn btn-success">
+      add new 
+    </div>
   </div>
 </template>
 
 <script>
-    import HotelExtras from '@/components/hotel/HotelExtras.vue'
 import HotelExtrasProperty from './HotelExtrasProperty.vue'
 
 export default {
     name:'HotelExtras',
     components:{HotelExtrasProperty},
+    props:{
+      extras:{
+        type:Object,
+        required:true,
+      },
+      extrasArray:{
+        type:Array,
+        required:false,
+        default:()=>[]
+      }
+    },
     data(){
         return{
-            extras:{
-                name:'',
-            valueType:'text',
-            value:'',
-            }
+            
+           
         }
     },
     watch:{

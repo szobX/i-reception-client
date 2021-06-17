@@ -8,10 +8,11 @@
         <label for="">Property name</label>
         <div class="d-flex">
           <input
-             
+            :value="currentProps[0]"
             type="text"
             class="form-control"
-            placeholder="Enter Bulding name"
+            placeholder="Enter Property name"
+            @blur="setObject"
           >
         </div>
       </div>
@@ -20,34 +21,35 @@
       <div class="form-group  ">
         <label for="">Value 
           <b-form-radio-group
-            v-model="extras.valueType"
+            value="valueType"
             class="pt-2"
             :options="['text', 'boolean', 'object','number']"
+            @input="changeValue"
           />
 
         </label>
         <div class="extras">
-          <template v-if="['text','number'].includes(extras.valueType)">
+          <template v-if="['text','number'].includes(valueType)">
             <input
               id=""
-              :type="extras.valueType"
+              :type="valueType"
               class="form-control"
               placeholder="Enter value name"
             >
           </template>
-          <template v-if="extras.valueType ==='boolean'">
+          <template v-if="valueType ==='boolean'">
             <b-form-checkbox
-              v-model="extras.value"
+              :checked="currentProps[1]"
               name="check-button"
               switch
             >
-              Switch Checkbox <b>(Checked: {{ extras.value }})</b>
+              Switch Checkbox <b>(Checked: {{ currentProps[1] }})</b>
             </b-form-checkbox>
           </template>
         </div>
       </div>
     </div>
-    <template v-if="extras.valueType ==='object'">
+    <template v-if="valueType ==='object'">
       <hotel-extras-property
         key="asdv"
         is-children
@@ -64,6 +66,11 @@ export default {
 name:'HotelExtrasProperty',
 components:{HotelExtrasProperty},
 props:{
+  currentProps:{
+  type:Array,
+  require:false,
+  default:()=>['','']
+  },
     isChildren:{type:Boolean,default:()=>false},
     childrenExtras:{
     type:Number,
@@ -75,8 +82,16 @@ props:{
         required:true,
     }
 },
+    computed:{
+      valueType(){
+        return  typeof this.currentProps[1]
+      },
+      extrasObject(){
+        return {name:this.currentProps[0],value:this.currentProps[1]}
+      }
+    },
 watch:{
-        'extras.valueType'(newVal){
+        'valueType'(newVal){
         console.log(newVal)
         if(newVal==='boolean'){
             this.extras.value = true
@@ -92,6 +107,19 @@ watch:{
             }
         }
         }
+    },
+    methods:{
+      changeValue(e){
+        console.log(e)
+      },
+      setObject(e){
+        this.$store.commit('SET_NEW_EXTRAS',{
+          object:{
+            [e.target.value]:this.currentProps[1]}
+            ,
+            id:'asdasd'})
+        console.log({[e.target.value]:this.currentProps[1]})
+      }
     }
 }
 </script>
