@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <template v-if="isAdmin > -1">
+      <navbar />
+      <Aside />
+      <div class="wrapper">
+        <router-view />
+        <footer class="main-footer">
+          admin dashboard reception app 
+        </footer>
+      </div>
+    </template>
+    <template v-else>
+      <router-view />
+    </template>
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Aside from './components/layout/aside.vue'
+import navbar from './components/layout/navbar.vue'
+export default{
+  name:'App',
+  components: { navbar,Aside },
+  data(
+    ){
+    return{
+      currentRoute:'null'
+    }
+  },
+  computed:{
+    isAdmin(){
+      return this.$route.path.indexOf('admin')
+    }
+  }
 }
+</script>
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
