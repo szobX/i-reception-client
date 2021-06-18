@@ -1,18 +1,20 @@
 <template>
   <div
-    class="row  align-items-end"
-    :class="[{'mt-1':isChildren},{'mt-5':!isChildren},{'pl-4':isChildren}]"
+    v-if="extrasProperty"
+    class="row  align-items-end my-5 bg-gray-light"
+    :class="[{'mt-1':isChildren},{'mt-5':!isChildren},{'children':isChildren}]"
   >
+    <!-- {{extrasPro}} -->
     <div class="col-5">
       <div class="form-group  ">
         <label for="">Property name</label>
         <div class="d-flex">
           <input
-            :value="currentProps[0]"
+            :value="extrasProperty.label"
             type="text"
             class="form-control"
             placeholder="Enter Property name"
-            @blur="setObject"
+            @input="setPropertyName"
           >
         </div>
       </div>
@@ -21,41 +23,54 @@
       <div class="form-group  ">
         <label for="">Value 
           <b-form-radio-group
-            value="valueType"
+            :checked="extrasProperty.type"
             class="pt-2"
             :options="['text', 'boolean', 'object','number']"
-            @input="changeValue"
+            @input="changeValueType"
           />
 
         </label>
         <div class="extras">
-          <template v-if="['text','number'].includes(valueType)">
+          <template v-if="['text','number'].includes(extrasProperty.type)">
             <input
-              id=""
-              :type="valueType"
+              :id="extrasProperty.id"
+              :value="extrasProperty.value"
+              :type="extrasProperty.type"
               class="form-control"
               placeholder="Enter value name"
+              @input="setValue"
             >
           </template>
-          <template v-if="valueType ==='boolean'">
+          <template v-else-if="extrasProperty.type ==='boolean'">
             <b-form-checkbox
-              :checked="currentProps[1]"
+              :checked="extrasProperty.value"
               name="check-button"
               switch
+              @input="setBooleanValue"
             >
-              Switch Checkbox <b>(Checked: {{ currentProps[1] }})</b>
+              Switch Checkbox <b>(Checked: {{ extrasProperty.value }})</b>
             </b-form-checkbox>
           </template>
         </div>
       </div>
     </div>
-    <template v-if="valueType ==='object'">
+    <template v-if="extrasProperty.type ==='object'">
       <hotel-extras-property
-        key="asdv"
+        v-for="(extra,idx) in extrasProperty.value"
+        :key="extra.label+idx"
         is-children
-        :children-extras="1"
-        :extras="extras.value"
+        :children-extras="idx+1"
+        :parent="extrasProperty"
+        :extras-property="extra"
       />
+    </template>
+    <template v-if="isChildren && parent.value.length === childrenExtras">
+      <button
+        class="btn w-25 text-white btn-warning"
+        @click.prevent="addNewProperty"
+      >
+        ADD PROPERTY TO PARENT
+      </button>
     </template>
   </div>
 </template>
@@ -66,64 +81,84 @@ export default {
 name:'HotelExtrasProperty',
 components:{HotelExtrasProperty},
 props:{
-  currentProps:{
-  type:Array,
-  require:false,
-  default:()=>['','']
-  },
     isChildren:{type:Boolean,default:()=>false},
     childrenExtras:{
     type:Number,
     required:false,
     default:()=>1
     },
-    extras:{
+    parent:{
         type:Object,
-        required:true,
+        required:false,
+        default:()=>null
+    },
+    extrasProperty:{
+        type:Object,
+        required:true
     }
 },
-    computed:{
-      valueType(){
-        return  typeof this.currentProps[1]
-      },
-      extrasObject(){
-        return {name:this.currentProps[0],value:this.currentProps[1]}
-      }
-    },
+    // computed:{
+    //   valueType(){
+    //     return  typeof this.currentProps[1]
+    //   },
+    //   extrasObject(){
+    //     return {name:this.currentProps[0],value:this.currentProps[1]}
+    //   }
+    // },
 watch:{
-        'valueType'(newVal){
-        console.log(newVal)
-        if(newVal==='boolean'){
-            this.extras.value = true
-        }
-        if(newVal ==='text'){
-            this.extras.value = ''
-        }
-        if(newVal ==='object'){
-            this.extras.value = {
-                name:'',
-                valueType:'text',
-                value:''
-            }
-        }
-        }
+     
     },
     methods:{
-      changeValue(e){
-        console.log(e)
+      setBooleanValue(e){
+        this.extrasProperty.value = e
       },
-      setObject(e){
-        this.$store.commit('SET_NEW_EXTRAS',{
-          object:{
-            [e.target.value]:this.currentProps[1]}
-            ,
-            id:'asdasd'})
-        console.log({[e.target.value]:this.currentProps[1]})
-      }
+      addNewProperty(){
+          this.parent.value.push({
+              label:'',
+              type:'text',
+              value:''
+            })
+      },
+      changeValueType(newVal){
+           // 'valueType'(newVal){
+        // console.log(newVal)
+        this.extrasProperty.type = newVal
+        if(newVal==='boolean'){
+            this.extrasProperty.value = true
+        }
+        if(newVal ==='text'){
+            this.extrasProperty.value = ''
+        }
+        if(newVal ==='object'){
+            this.extrasProperty.value = [{
+              label:'',
+              type:'text',
+              value:''
+            }]
+        }
+        
+      },
+      setValue(e){
+    
+        this.extrasProperty.value = this.extrasProperty.type ==='number' ? parseFloat(e.target.value) : e.target.value
+        
+      },
+      setPropertyName(e){
+          console.log(e)
+    this.extrasProperty.label =  e.target.value
+    
+  }
+      // changeValue(e){
+      //   console.log(e)
+      // },
+ 
     }
 }
 </script>
 
 <style>
-
+.children{
+  padding-left:20px;
+  border-left:10px solid rgb(192, 0, 118);
+}
 </style>

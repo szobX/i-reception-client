@@ -1,9 +1,11 @@
 <template>
-  <div class="form-group  flex">
-    <label for="hotelname">Extras name</label>
+  <div
+    class="form-group  flex"
+  >
+    <label :for="extras.id">Extras name</label>
     <div class="d-flex">
       <input
-        id="hotelname"
+        :id="extras.id"
         v-model="extras.name"
         type="text"
         class="form-control"
@@ -11,21 +13,26 @@
       >
     </div>
     <!-- children -->
-    
-    <HotelExtrasProperty
-      v-for="(value,key) in extras.properties"
-      :key="key"
-      :extras="extras"
-      :current-props="[key,value]"
-    />
-    <div class="btn btn-success">
-      add new 
-    </div>
+    <template v-if="true">
+      <HotelExtrasProperty
+        v-for="(extra,idx) in extras.properties"
+        :key="`extras`+idx"
+        :extras-property="extra"
+        @addNew="addNewProperty"
+      />
+      <button
+        class="btn w-25 btn-success"
+        @click.prevent="addNewProperty"
+      >
+        {{ true ? 'ADD NEW PROPERTY TO PARENT' :'ADD NEW PROPERTY' }}
+      </button>
+    </template>
   </div>
 </template>
 
 <script>
 import HotelExtrasProperty from './HotelExtrasProperty.vue'
+import { mapFields,mapMultiRowFields } from 'vuex-map-fields';
 
 export default {
     name:'HotelExtras',
@@ -39,31 +46,55 @@ export default {
         type:Array,
         required:false,
         default:()=>[]
+      },
+      arrayId:{
+        type:Number,
+        required:true,
+
       }
     },
     data(){
         return{
-            
+            s:this.arrayId
            
         }
     },
+    computed:{
+      propsy(){
+return this.extras.properties
+      },
+      // ...mapFields({extrasName:'extrasList[0].name'}),
+      // ...mapMultiRowFields([`extrasList[${this.s}].properties`])
+    },
     watch:{
-        'extras.valueType'(newVal){
-        console.log(newVal)
-        if(newVal==='boolean'){
-            this.extras.value = true
-        }
-        if(newVal ==='text'){
-            this.extras.value = ''
-        }
-        if(newVal ==='object'){
-            this.extras.value = {
-                name:'',
-                valueType:'text',
-                value:''
-            }
-        }
-        }
+        // 'extras.valueType'(newVal){
+        // console.log(newVal)
+        // if(newVal==='boolean'){
+        //     this.extras.value = true
+        // }
+        // if(newVal ==='text'){
+        //     this.extras.value = ''
+        // }
+        // if(newVal ==='object'){
+        //     this.extras.value = {
+        //         name:'',
+        //         valueType:'text',
+        //         value:''
+        //     }
+        // }
+        // }
+    },
+    beforeMount(){
+
+    },
+    methods:{
+      addNewProperty(target,e){
+         this.extras.properties.push( {
+            label:'',
+            type:'text',
+            value:''
+          })
+      },
     }
 }
 </script>

@@ -96,11 +96,11 @@
               >
             </div>
           </div>
-          <div class="col-xl-4 col-6">
+          <div class="col-xl-6 col-6">
             <div class="form-group">
-              <label for="hotelLongitude">Link image</label>
+              <label for="hotelLink">Link image</label>
               <input
-                id="hotelLongitude"
+                id="hotelLink"
                 v-model="bulding.image"
                 type="text"
                 class="form-control"
@@ -112,7 +112,7 @@
       </div>
     </div> 
     <div
-      v-for="(extra,idx) in extras"
+      v-for="(extra,idx) in extrasList"
       :key="extra.id"
       class="card card-primary mt-5"
     >
@@ -120,17 +120,6 @@
         <h3 class="card-title  text-bold">
           EXTRAS #{{ idx+1 }}
         </h3>
-        <div class=" ml-auto d-flex">
-          <button
-            class="btn btn-success"
-            @click.prevent="newExtras"
-          >
-            +
-          </button>
-          <button class="btn btn-danger">
-            -
-          </button>
-        </div>
       </div>
       <div class="card-body">
         <div class="row">
@@ -138,17 +127,24 @@
             <hotel-extras
               key="first"
               :extras="extra"
-              :extras-array="extras"
+              :array-id="findId(extra.id)"
             />
           </div>
         </div>
       </div>
     </div>
+    <button
+      class="btn btn-success"
+      @click.prevent="$store.commit('ADD_NEW_EXTRAS')"
+    >
+      ADD EXTRAS
+    </button>
   </div>
 </template>
 
 <script>
 import HotelExtras from '@/components/hotel/HotelExtras.vue'
+import { mapMultiRowFields,mapFields } from 'vuex-map-fields';
 
 export default {
   name:'HotelForm',
@@ -171,12 +167,17 @@ components: {
   
 },
   computed:{
-    extras(){
-      return    this.$store.state.extras
+    // ...mapMultiRowFields(['extrasList']),
+    ...mapFields(['extrasList'])
 
-    }
+    // extras(){
+    //   return    this.$store.state.extrasList
+    // }
   },
 methods:{
+  findId(id){
+        return this.$store.state.extrasList.findIndex(e=>e.id === id)
+      },
   newExtras(){
     this.extras.push( {
       id:new Date().valueOf,
