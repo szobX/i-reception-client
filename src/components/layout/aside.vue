@@ -25,9 +25,9 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
+          <li class="nav-item ">
             <a
-              href="#"
+              href="#/admin/dashboard/hotel"
               class="nav-link active"
             >
               Hotel listing
@@ -35,11 +35,11 @@
           </li>
           <li class="nav-item">
             <a
-              href="#"
+              href="#/admin/dashboard/users"
               class="nav-link"
             >
-              <i class="nav-icon far fa-circle text-warning" />
-              <p>Warning</p>
+             
+              <p>Users</p>
             </a>
           </li>
           <li class="nav-item">

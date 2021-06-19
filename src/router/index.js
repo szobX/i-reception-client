@@ -7,6 +7,12 @@ import AdminDashboardHotelList from '../views/admin/hotel/List.vue';
 import AdminDashboardHotelAdd from '../views/admin/hotel/Add.vue';
 import AdminDashboardHotelEdit from '../views/admin/hotel/Edit.vue';
 import AdminDashboardHotelItem from '../views/admin/hotel/Hotel.vue';
+
+import AdminDashboardRoomList from '../views/admin/room/List.vue';
+import AdminDashboardRoomAdd from '../views/admin/room/Add.vue';
+import AdminDashboardRoomEdit from '../views/admin/room/Edit.vue';
+import AdminDashboardRoomItem from '../views/admin/room/Room.vue';
+import AdminUserList from '../views/admin/UserList.vue';
 import Login from '../views/login.vue';
 import Register from '../views/register.vue';
 import Hotel from '../views/Hotel.vue';
@@ -46,6 +52,11 @@ const routes = [
     component: AdminDashboard,
   },
   {
+    path:'/admin/dashboard/users',
+    name:'AdminUserList',
+    component:AdminUserList
+  },
+  {
     path: "/admin/dashboard/hotel",
     name:"AdminDashboardHotelList",
     component:AdminDashboardHotelList
@@ -64,6 +75,26 @@ const routes = [
     path: "/admin/dashboard/hotel/:id/edit",
     name:"AdminDashboardHotelItemEdit",
     component:AdminDashboardHotelEdit
+  },
+  {
+    path: "/admin/dashboard/room",
+    name:"AdminDashboardRoomList",
+    component:AdminDashboardRoomList
+  },
+  {
+    path: "/admin/dashboard/room/add",
+    name:"AdminDashboardRoomAdd",
+    component:AdminDashboardRoomAdd
+  },
+  {
+    path: "/admin/dashboard/room/:id",
+    name:"AdminDashboardRoomItem",
+    component:AdminDashboardRoomItem
+  },
+  {
+    path: "/admin/dashboard/room/:id/edit",
+    name:"AdminDashboardRoomEdit",
+    component:AdminDashboardRoomEdit
   }
  
 ];

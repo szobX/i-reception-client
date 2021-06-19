@@ -5,7 +5,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">
-              Bulding List
+              Room List
             </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -14,7 +14,7 @@
                 <a href="#">Home</a>
               </li>
               <li class="breadcrumb-item active">
-                Bulding List
+                Room List
               </li>
             </ol>
           </div><!-- /.col -->
@@ -25,10 +25,10 @@
       <div class="container-fluid">
         <div class="mb-3">
           <router-link
-            to="/admin/dashboard/hotel/add"
+            to="/admin/dashboard/room/add"
             class="btn btn-primary"
           >
-            ADD BULDING
+            ADD ROOM
           </router-link>
         </div>
     
@@ -42,7 +42,7 @@
 import HotelList from '@/components/hotel/HotelList.vue'
 
 export default {
-  name:'AdminHotelList',
+  name:'AdminDashboardRoomList',
 components: {
     HotelList,
   },

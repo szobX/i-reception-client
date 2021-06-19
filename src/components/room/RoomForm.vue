@@ -8,104 +8,130 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12">
+          <div class="col-6">
             <div class="form-group">
-              <label for="hotelname">Building name</label>
+              <label for="roomNumber">Room number</label>
               <input
-                id="hotelname"
-                v-model="bulding.name"
+                id="roomNumber"
+                v-model="room.number"
                 type="text"
                 class="form-control"
-                placeholder="Enter Bulding name"
+                placeholder="Enter Room Number"
               >
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="roomNumber">Bulding ID</label>
+
+              <b-form-select
+                v-model="room.buildingId"
+                :options="['a','b']"
+              />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-xl-4 col-6">
             <div class="form-group">
-              <label for="street">Street name</label>
+              <label for="roomFlor">Floor </label>
               <input
-                id="street"
-                v-model="bulding.streetName"
-                type="text"
+                id="roomFlor"
+                v-model="room.floor"
+                type="number"
                 class="form-control"
-                placeholder="Enter Street name"
+                placeholder="Enter Floor"
               >
             </div>
           </div>
           <div class="col-xl-4 col-6">
             <div class="form-group">
-              <label for="houseNumber">House number </label>
-              <input
-                id="houseNumber"
-                v-model="bulding.houseNumber"
-                type="text"
-                class="form-control"
-                placeholder="Enter House number"
-              >
+              <label for="pricePerday">Price per day  </label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input
+                  id="pricePerday"
+                  v-model="room.pricePerDay"
+                  type="text"
+                  class="form-control"
+                >
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-xl-4 col-6">
             <div class="form-group">
-              <label for="hotelCity">City</label>
+              <label for="tt">Image link</label>
               <input
-                id="hotelCity"
-                v-model="bulding.city"
+                id="tt"
+                v-model="room.image"
                 type="text"
                 class="form-control"
-                placeholder="Enter City "
+                placeholder="Enter Image link"
               >
             </div>
           </div>
         </div>
+        <div class="d-flex my-3">
+          <div class="mr-5">
+            <div class="text-bold">
+              isAvailable
+            </div>
+            <b-form-checkbox
+              v-model="room.isAvailable"
+              name="cn"
+              switch
+            />
+          </div>
+         
+         
+          <div class="mr-5">
+            <div class="text-bold">
+              is Clean
+            </div>
+            <b-form-checkbox
+              v-model="room.isClean"
+              name="check-button"
+              switch
+            />
+          </div>
+
+          <div class="mr-5">
+            <div class="text-bold">
+              Demaged
+            </div>
+            <b-form-checkbox
+              v-model="room.isDamaged"
+              name="check-button"
+              switch
+            />
+          </div>
+          <div class="mr-5">
+            <div class="text-bold">
+              Rent
+            </div>
+            <b-form-checkbox
+              v-model="room.isRent"
+              name="check-button"
+              switch
+            />
+          </div>
+        </div>
         <div class="row">
-          <div class="col-xl-4 col-6">
+          <div class="col-xl-12 col-12">
             <div class="form-group">
-              <label for="hotelZipCode">Zip code</label>
-              <input
-                id="hotelZipCode"
-                v-model="bulding.zipCode"
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                v-model="room.description"
                 type="text"
                 class="form-control"
-                placeholder="Enter Zip Code"
-              >
-            </div>
-          </div>
-          <div class="col-xl-4 col-6">
-            <div class="form-group">
-              <label for="hotelLatitude">Latitude</label>
-              <input
-                id="hotelLatitude"
-                v-model="bulding.latitude"
-                type="text"
-                class="form-control"
-                placeholder="Enter Hotel latidute "
-              >
-            </div>
-          </div>
-          <div class="col-xl-4 col-6">
-            <div class="form-group">
-              <label for="hotelLongitude">Longitude</label>
-              <input
-                id="hotelLongitude"
-                v-model="bulding.longitude"
-                type="text"
-                class="form-control"
-                placeholder="Enter Hotel longitude "
-              >
-            </div>
-          </div>
-          <div class="col-xl-6 col-6">
-            <div class="form-group">
-              <label for="hotelLink">Link image</label>
-              <input
-                id="hotelLink"
-                v-model="bulding.image"
-                type="text"
-                class="form-control"
-                placeholder="Enter Hotel image link "
-              >
+                placeholder="Enter Description "
+              />
             </div>
           </div>
         </div>
@@ -144,7 +170,7 @@
         class="  btn btn-xl btn-outline-primary  btn-lg "
         @click="sendForm"
       >
-        CREATE BULDING
+        CREATE room
       </button>
     </div>
   </div>
@@ -161,15 +187,18 @@ components: {
   },
  data(){
     return{
-        bulding:{
-        name:'',
-        streetName:'',
-        houseNumber:'',
-        city:'',
-        zipCode:'',
-        latitude:'',
-        longitude:'',
+        room:{
+        id:'',
+        number:'',
+        floor:1,
+        pricePerDay:0,
+        buildingId:'',
+        description:'',
         image:'',
+        isAvailable:true,
+        isClean:true,
+        isRent:false,
+        isDamaged:false,
     },
     }
   
