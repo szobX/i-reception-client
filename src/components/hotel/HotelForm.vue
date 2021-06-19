@@ -139,6 +139,14 @@
     >
       ADD EXTRAS
     </button>
+    <div class="d-flex ml-auto pr-5 my-4 justify-content-end">
+      <button
+        class="  btn btn-xl btn-outline-primary  btn-lg "
+        @click="sendForm"
+      >
+        CREATE BULDING
+      </button>
+    </div>
   </div>
 </template>
 
@@ -188,7 +196,86 @@ methods:{
             value:'text',
             valueType:'text',
         },)
+  },
+  // check(arr,t=[],parent=null){
+  
+  //   arr.forEach(e=>{
+  //     // console.log(e)
+
+  //     if(e.type ==='object'){
+  //       this.check(e.value,t,arr)
+  //     }else{
+  //       if(parent){
+  //         t.push({[parent.label]:{[e.label]:e.value}})
+  //       }else{
+  //         t.push({[e.label]:e.value})
+
+  //       }
+      
+  //     }
+  //   })
+  //   return t
+  // },
+ 
+ toObject(arr) {
+  var rv = {};
+  // debugger
+  for (var i = 0; i < arr.length; ++i)
+    rv[arr[i].label] = arr[i].value;
+  return rv;
+},
+getSerialize(arr,parentLabel,propsy={}){
+  const serialize = {}
+  arr.forEach((t,idx)=>{
+
+      if(t.type=='object'){
+         const s = this.getSerialize(t.value,t.label)
+        //  console.log(s,'s callback')
+        serialize[t.label] = {...s}
+      }else{
+        serialize[t.label] = t.value
+      }
+    })
+        return serialize
+},
+  sendForm(){
+    const newArr = []
+    
+    this.extrasList.forEach((extras,idx)=>{
+      const propsy = {name:extras.name,properties:{}}
+      // console.log(extras.name)
+       const t = this.getSerialize(extras.properties,'properties',propsy)
+      console.log(t)
+      
+    })
+   
+    // console.log(serialize)
+    //  console.log('arr',arr)
+//   console.log('parent',parentLabel)
+//   const serialize = {}
+//   arr.forEach((t,idx)=>{
+//       console.log({[t.label]:t.value})
+
+//       if(t.type=='object'){
+//         console.log(t.label,'--- object:')
+//          const s = this.getSerialize(t.value,t.label, propsy[t.label])
+//         //  console.log(s,'s callback')
+//          propsy[t.label] = {...s}
+//          console.log(propsy)
+//       }else{
+//         serialize[t.label] = t.value
+//       }
+      
+//     })
+//       // console.log(serialize)
+//       // debugger
+//         // propsy[parentLabel]={...propsy[parentLabel],...serialize}
+//         console.log(serialize)
+//         return serialize
+// //  DROGA
+
   }
+
 }
 }
 </script>
@@ -196,3 +283,4 @@ methods:{
 <style>
 
 </style>
+

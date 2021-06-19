@@ -14,7 +14,7 @@
             type="text"
             class="form-control"
             placeholder="Enter Property name"
-            @input="setPropertyName"
+            @blur="setPropertyName"
           >
         </div>
       </div>
@@ -38,7 +38,7 @@
               :type="extrasProperty.type"
               class="form-control"
               placeholder="Enter value name"
-              @input="setValue"
+              @blur="setValue"
             >
           </template>
           <template v-else-if="extrasProperty.type ==='boolean'">

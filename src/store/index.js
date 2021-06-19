@@ -25,95 +25,106 @@ export default new Vuex.Store({
           },
       },
   ],
-  extrasList:[
-    {
-      id:Math.ceil(Math.random()*33333),
-      name:'',
-      properties:[
-        {
-          label:'',
-          type:'text',
-          value:''
-        }
-      ]
-    }
-  ],
   // extrasList:[
   //   {
-  //     id:'234234',
-  //     name:"basen",
+  //     id:Math.ceil(Math.random()*33333),
+  //     name:'',
   //     properties:[
   //       {
-  //         label:'długość',
-  //         type:'number',
-  //         value:40,
-  //       },
-  //       {
-  //         label:'szerokość',
-  //         type:'number',
-  //         value:20
-  //       },
-  //       {
-  //         label:'jacuzzi',
-  //         type:'boolean',
-  //         value:true
-  //       },
-  //       {
-  //         label:'rodzaje',
-  //         type:'object',
-  //         value:[
-  //           {
-  //             label:'maly',
-  //             type:'text',
-  //             value:'brodzik max(150cm)',
-  //           },
-  //           {
-  //             label:'olimpijski',
-  //             type:'text',
-  //             value:'basen duży (420cm)'
-  //           }
-  //         ]
+  //         label:'',
+  //         type:'text',
+  //         value:''
   //       }
   //     ]
-  //   },
-  //   {
-  //     id:'asdasd',
-  //     name:"basen",
-  //     properties:[
-  //       {
-  //         label:'długośćx12',
-  //         type:'number',
-  //         value:40,
-  //       },
-  //       {
-  //         label:'szerokość',
-  //         type:'number',
-  //         value:20
-  //       },
-  //       {
-  //         label:'jacuzzi',
-  //         type:'boolean',
-  //         value:true
-  //       },
-  //       {
-  //         label:'rodzaje',
-  //         type:'object',
-  //         value:[
-  //           {
-  //             label:'maly',
-  //             type:'text',
-  //             value:'brodzik max(150cm)',
-  //           },
-  //           {
-  //             label:'olimpijski',
-  //             type:'text',
-  //             value:'basen duży (420cm)'
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   },
-  // ]
+  //   }
+  // ],
+  extrasList:[
+    {
+      id:'234234',
+      name:"basen",
+      properties:[
+        {
+          label:'długość',
+          type:'number',
+          value:40,
+        },
+        {
+          label:'szerokość',
+          type:'number',
+          value:20
+        },
+        {
+          label:'jacuzzi',
+          type:'boolean',
+          value:true
+        },
+        {
+          label:'rodzaje',
+          type:'object',
+          value:[
+            {
+              label:'maly',
+              type:'object',
+              value:[
+                {
+                  label:'maly - nasted',
+                  type:'text',
+                  value:'maly-nasted-value',
+                },
+                {
+                  label:'mini mini',
+                  type:'text',
+                  value:'pozdro kk'
+                }
+              ]
+            },
+            {
+              label:'olimpijski',
+              type:'text',
+              value:'basen duży (420cm)'
+            }
+          ]
+        }
+      ]
+    },
+    // {
+    //   id:'asdasd',
+    //   name:"basen",
+    //   properties:[
+    //     {
+    //       label:'długośćx12',
+    //       type:'number',
+    //       value:40,
+    //     },
+    //     {
+    //       label:'szerokość',
+    //       type:'number',
+    //       value:20
+    //     },
+    //     {
+    //       label:'jacuzzi',
+    //       type:'boolean',
+    //       value:true
+    //     },
+    //     {
+    //       label:'rodzaje',
+    //       type:'object',
+    //       value:[
+    //         {
+    //           label:'maly',
+    //           type:'text',
+    //           value:'brodzik max(150cm)',
+    //         },
+    //         {
+    //           label:'olimpijski',
+    //           type:'text',
+    //           value:'basen duży (420cm)'
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // },
+  ]
   },
   getters:{
     getField
