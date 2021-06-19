@@ -11,7 +11,6 @@ import HomeHotelList from '../components/hotel/HomeHotelList.vue';
 export default {
   name: "Home",
   components: { HomeHotelList },
- 
   data() {
     return {
       value: "",
@@ -62,7 +61,13 @@ export default {
         },                
       ]
     }
-  }
+  },
+  mounted(){
+this.axios.get('building').then(res=>{
+  console.log(res)
+    this.hotels = res.data
+})
+        }
 }
 
 </script>

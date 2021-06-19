@@ -1,13 +1,13 @@
 <template>
-  <div v-if="hotels.length > 0">
+  <div v-if="rooms.length > 0">
     <b-table
-      :items="hotels"
+      :items="rooms"
       :fields="fields"
       striped
       responsive="sm"
     >
       <template #cell(hotel_name)="data">
-        <router-link :to="{ path: `/admin/dashboard/hotel/${data.item.hotelId}`}">
+        <router-link :to="{ path: `/admin/dashboard/room/${data.item.Id}`}">
           {{ data.value }}
         </router-link>
       </template>
@@ -103,7 +103,7 @@
         Name:'HotelList',
     data() {
     return {
-      hotels:[],
+      rooms:[],
     fields: ['Name', 'City', ,'StreetName','action'],
 
     }
@@ -113,9 +113,9 @@
         },
     methods:{
       fetchData(){
-        this.axios.get('building').then(res=>{
+        this.axios.get('room').then(res=>{
   console.log(res)
-    this.hotels = res.data
+    this.rooms = res.data
 })
       },
 remove(id){

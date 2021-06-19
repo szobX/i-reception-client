@@ -10,7 +10,7 @@
     >
       <b-card
         
-        :img-src="hotel.image"
+        :img-src="hotel.Image"
         img-alt="Image"
         img-top
         tag="article"
@@ -19,18 +19,18 @@
       >
         <template #header>
           <h6 class="text-bold text-gray-700">
-            {{ hotel.name }}
+            {{ hotel.Name }}
           </h6>
         </template>
         <b-card-text>
-          {{ hotel.city }}, {{ hotel.zipCode }}<br>
-          {{ hotel.streetName }}{{ hotel.houseNumber }} <br>
-          <b-icon icon="map" />
+          {{ hotel.City }}, {{ hotel.ZipCode }}<br>
+          {{ hotel.StreetName }}{{ hotel.HouseNumber }} <br>
+          <b-icon icon="map" /> {{ hotel.Latitude }}, {{ hotel.Longitude }}
         </b-card-text>
 
         <router-link
           class="btn btn-primary"
-          :to="{name:'Hotel',params:{id:hotel.id}}"
+          :to="{name:'Hotel',params:{id:hotel.Id}}"
         >
           Look rooms
         </router-link>

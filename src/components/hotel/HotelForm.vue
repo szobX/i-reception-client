@@ -78,7 +78,7 @@
               <input
                 id="hotelLatitude"
                 v-model="bulding.latitude"
-                type="text"
+                type="number"
                 class="form-control"
                 placeholder="Enter Hotel latidute "
               >
@@ -90,7 +90,7 @@
               <input
                 id="hotelLongitude"
                 v-model="bulding.longitude"
-                type="text"
+                type="number"
                 class="form-control"
                 placeholder="Enter Hotel longitude "
               >
@@ -106,6 +106,20 @@
                 class="form-control"
                 placeholder="Enter Hotel image link "
               >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-12">
+            <div class="form-group">
+              <label for="desc">Description</label>
+              <textarea
+                id="desc"
+                v-model="bulding.description"
+                type="text"
+                class="form-control"
+                placeholder="Enter Hotel Description "
+              />
             </div>
           </div>
         </div>
@@ -163,12 +177,13 @@ components: {
     return{
         bulding:{
         name:'',
+        description:'',
         streetName:'',
         houseNumber:'',
         city:'',
         zipCode:'',
-        latitude:'',
-        longitude:'',
+        latitude:0,
+        longitude:0,
         image:'',
     },
     }
@@ -251,9 +266,23 @@ getSerialize(arr,parentLabel,propsy={}){
         properties:{...t}
       })
     })
+    this.bulding.longitude = parseFloat(this.bulding.longitude)
+    this.bulding.latitude = parseFloat(this.bulding.latitude)
 
-    console.log(newArr)
-    console.log(JSON.stringify(newArr))
+const data = {
+  building:this.bulding,
+  rawExtras:newArr
+}
+    console.log(JSON.stringify(this.bulding))
+    console.log(JSON.stringify(data))
+    this.axios.post('/building/extras',data).then(e=>{
+      console.log(e)
+      if(e.status === 200){
+        this.$router.push({name:'AdminDashboardHotelList'})
+      }
+    }).catch(er=>{
+      console.log(er)
+    })
     // console.log(serialize)
     //  console.log('arr',arr)
 //   console.log('parent',parentLabel)

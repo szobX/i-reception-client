@@ -26,7 +26,7 @@
 
               <b-form-select
                 v-model="room.buildingId"
-                :options="['a','b']"
+                :options="building"
               />
             </div>
           </div>
@@ -102,7 +102,7 @@
 
           <div class="mr-5">
             <div class="text-bold">
-              Demaged
+              Damaged
             </div>
             <b-form-checkbox
               v-model="room.isDamaged"
@@ -187,6 +187,7 @@ components: {
   },
  data(){
     return{
+      building:[],
         room:{
         id:'',
         number:'',
@@ -203,7 +204,7 @@ components: {
     }
   
 },
-  computed:{
+computed:{
     // ...mapMultiRowFields(['extrasList']),
     ...mapFields(['extrasList'])
 
@@ -211,7 +212,16 @@ components: {
     //   return    this.$store.state.extrasList
     // }
   },
+  beforeMount(){
+    this.fetchHotels()
+  },
 methods:{
+  fetchHotels(){
+    this.axios.get('building').then(res=>{
+  console.log(res)
+    this.building = res.data.map(e=>({text:e.Name,value:e.Id}))
+})
+  },
   findId(id){
         return this.$store.state.extrasList.findIndex(e=>e.id === id)
       },
@@ -280,9 +290,22 @@ getSerialize(arr,parentLabel,propsy={}){
         properties:{...t}
       })
     })
-
-    console.log(newArr)
-    console.log(JSON.stringify(newArr))
+   
+this.room.pricePerDay = parseFloat(this.room.pricePerDay)
+const data = {
+  room:this.room,
+  rawExtras:newArr
+}
+    console.log(JSON.stringify(this.room))
+    console.log(JSON.stringify(data))
+    this.axios.post('/room/extras',data).then(e=>{
+      console.log(e)
+      if(e.status === 200){
+        this.$router.push({name:'AdminDashboardRoomList'})
+      }
+    }).catch(er=>{
+      console.log(er)
+    })
     // console.log(serialize)
     //  console.log('arr',arr)
 //   console.log('parent',parentLabel)

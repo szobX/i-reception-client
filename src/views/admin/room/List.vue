@@ -32,19 +32,19 @@
           </router-link>
         </div>
     
-        <hotel-list />
+        <room-list />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import HotelList from '@/components/hotel/HotelList.vue'
+import RoomList from '@/components/room/RoomList.vue'
 
 export default {
   name:'AdminDashboardRoomList',
 components: {
-    HotelList,
+    RoomList,
   },
 }
 </script>
