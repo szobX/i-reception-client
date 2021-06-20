@@ -5,7 +5,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">
-              Users
+              reservations
             </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -14,7 +14,7 @@
                 <a href="#">Home</a>
               </li>
               <li class="breadcrumb-item active">
-                users
+                reservations
               </li>
             </ol>
           </div><!-- /.col -->
@@ -29,9 +29,9 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">
-                    Users
+                    reservations
                   </h3>
-
+  
                   <div class="card-tools">
                     <div
                       class="input-group input-group-sm"
@@ -43,7 +43,7 @@
                         class="form-control float-right"
                         placeholder="Search"
                       >
-
+  
                       <div class="input-group-append">
                         <button
                           type="submit"
@@ -61,29 +61,41 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Full name</th>
-                        <th>Email</th>
-                        <th>phone</th>
-                        <th>address</th>
+                        <th>ID client</th>
+                        <th>start date</th>
+                        <th>end date</th>
+                        <th>Cost</th>
+                        <th>paid</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="user in users"
-                        :key="user.Id"
+                        v-for="reservation in reservations"
+                        :key="reservation.Id"
                       >
-                        <td>{{ user.Id }}</td>
-                        <td>{{ user.FirstName }} {{ user.LastName }}</td>
-                        <td>{{ user.Email }}</td>
-                        <td>{{ user.Phone }}</td>
-                        <td>{{ `${user.City},${user.ZipCode} - ${user.StreetName} ${user.FlatNumber}` }}</td>
+                        <td>{{ reservation.Id }}</td>
+                        <td>{{ reservation.ClientId }}</td>
+                        <td>{{ reservation.StartDate }}</td>
+                        <td>{{ reservation.EndDate }}</td>
+
+                        <td><span class="text-bold">{{ reservation.Cost }}$</span></td>
+                        <td>
+                          <span
+                            v-if="reservation.IsPaid"
+                            class="badge badge-success"
+                          >PAID</span>
+                          <span
+                            v-else
+                            class="badge badge-danger"
+                          >NOT PAID</span>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-              <!-- /.card-body -->
+                <!-- /.card-body -->
               </div>
-            <!-- /.card -->
+              <!-- /.card -->
             </div>
           </div>
         </div>
@@ -91,29 +103,29 @@
     </div>
   </div>
 </template>
-  
-  <script>
-//   import HotelList from '@/components/hotel/HotelList.vue'
-  
-  export default {
-    name:'AdminUserList',
-  components: {},
-    data(){
-      return{
-        users:[]
-      }
-    },
-    mounted(){
-      this.fetchData()
-    },
-    methods:{
-      fetchData(){
-        return this.axios.get('user').then(res=>{this.users = res.data})
+    
+    <script>
+  //   import HotelList from '@/components/hotel/HotelList.vue'
+    
+    export default {
+      name:'AdminreservationList',
+    components: {},
+      data(){
+        return{
+            reservations:[]
+        }
+      },
+      mounted(){
+        this.fetchData()
+      },
+      methods:{
+        fetchData(){
+          return this.axios.get('reservation').then(res=>{this.reservations = res.data})
+        }
       }
     }
-  }
-  </script>
-  
-  <style>
-  
-  </style>
+    </script>
+    
+    <style>
+    
+    </style>

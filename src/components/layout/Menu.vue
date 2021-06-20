@@ -22,7 +22,7 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            Hello <em>{{ user.name }}</em>
+            <span class="text-white">Hello <em>{{ user.FirstName }}</em></span>
           </template>
           <b-dropdown-item href="#">
             Profile

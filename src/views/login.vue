@@ -24,6 +24,7 @@
           >
             <div class="input-group mb-3">
               <input
+                v-model="form.email"
                 type="email"
                 class="form-control"
                 placeholder="Email"
@@ -39,6 +40,7 @@
             </div>
             <div class="input-group mb-3">
               <input
+                v-model="form.password"
                 type="password"
                 class="form-control"
                 placeholder="Password"
@@ -52,6 +54,12 @@
                 </div>
               </div>
             </div>
+            <p
+              v-if="error"
+              class="text-danger"
+            >
+              bad login or password try again
+            </p>
             <button
               type="submit"
               class="btn btn-primary btn-block"
@@ -85,6 +93,7 @@
   name:'Login',
   data(){
         return{
+          error:true,
             form:{
                 email:'',
                 password:'',
@@ -93,6 +102,7 @@
     },
     methods:{
         logIn(){
+          this.error = false
             //  tu będzie axios do API :)
             const data = {
                 user:{
@@ -100,8 +110,12 @@
                     id:"34234234"
                 }
             }
-            this.$store.dispatch('login',data.user)
+            this.axios.post('user/login',this.form).then(res=>{
+              console.log(res)
+              this.$store.dispatch('login',res.data)
             this.$router.push({name:'Home'})
+            }).catch(err=>{console.log(err.response); this.error = true})
+           
         }
     }
   }

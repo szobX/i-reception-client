@@ -17,7 +17,8 @@ import Login from '../views/login.vue';
 import Register from '../views/register.vue';
 import Hotel from '../views/Hotel.vue';
 import Room from '../views/Room.vue';
-
+import Reservation from '../views/Reservation.vue';
+import ReservationList from '../views/admin/ReservationList.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path:"/reservation",
+    name:"Reservation",
+    component:Reservation
   },
   {
     path: "/login",
@@ -95,6 +101,11 @@ const routes = [
     path: "/admin/dashboard/room/:id/edit",
     name:"AdminDashboardRoomEdit",
     component:AdminDashboardRoomEdit
+  },
+  {
+    path:"/admin/dashboard/reservations",
+    name:"AdminDashboardReservation",
+    component:ReservationList
   }
  
 ];

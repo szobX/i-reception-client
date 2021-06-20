@@ -44,6 +44,15 @@
           </li>
           <li class="nav-item">
             <a
+              href="#/admin/dashboard/reservations"
+              class="nav-link"
+            >
+             
+              <p>Reservations</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
               href="#"
               class="nav-link"
             >
